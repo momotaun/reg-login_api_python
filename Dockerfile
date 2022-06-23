@@ -1,4 +1,4 @@
-FROM python:3.10.5-alpine3.16
+FROM python:3.9-alpine3.13
 LABEL maintainer="conact.com"
 
 ENV PYTHONUNBUFFERED 1
@@ -12,8 +12,8 @@ EXPOSE 8000
 
 RUN python -m venv /env && /env/bin/pip install --upgrade pip && \ 
     apk add --update --no-cache postgresql-client && \
-    apk add --update --no-cache virtual .tmp-deps build-base \ 
-    postgresql-dev musl-dev &&\
+    apk add --update --no-cache --virtual .tmp-deps \ 
+        build-base postgresql-dev musl-dev linux-headers && \
     /env/bin/pip install -r /requirements.txt && \
     apk del .tmp-deps && \
     adduser --disabled-password --no-create-home app
