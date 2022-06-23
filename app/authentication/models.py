@@ -12,21 +12,21 @@ class UserManager(BaseUserManager):
     
     def create_user(self, 
                     email, 
-                    company_name,
-                    phone, 
+                    first_name,
+                    last_name,
                     password, 
                     **extra_fields):
         if not email:
             raise ValueError('The Email must be set.')
-        if not company_name:
-            raise ValueError('The Company name must be set.')
-        if not phone:
-            raise ValueError('The phone must be set.')
+        if not first_name:
+            raise ValueError('The First name must be set.')
+        if not last_name:
+            raise ValueError('The Last name must be set.')
         email = self.normalize_email(email)
         user = self.model(
             email=email, 
-            company_name=company_name,
-            phone=phone,
+            first_name=first_name,
+            last_name=last_name,
             **extra_fields
             )
         user.set_password(password)
@@ -35,7 +35,8 @@ class UserManager(BaseUserManager):
         
     def create_superuser(self, 
                          email, 
-                         company_name,
+                         first_name,
+                         last_name,
                          phone,
                          password, 
                          **extra_fields):
@@ -50,8 +51,8 @@ class UserManager(BaseUserManager):
         
         return self.create_user(
             email, 
-            company_name,
-            phone,
+            first_name,
+            last_name,
             password, 
             **extra_fields)
         
@@ -61,7 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     email = models.EmailField(verbose_name=("E-mail"), unique=True, max_length=254)
     first_name = models.CharField(verbose_name=("First name"), null=True, max_length=50)
-    last_name = models.CharField(verbose_name=("First name"), null=True, max_length=50)
+    last_name = models.CharField(verbose_name=("Last name"), null=True, max_length=50)
     address = models.CharField(verbose_name=("Address"), null=True, blank=True, max_length=254)
     is_verified = models.BooleanField(verbose_name=("Verified"), default=False)
     is_active = models.BooleanField(verbose_name=("Active"), default=False)
