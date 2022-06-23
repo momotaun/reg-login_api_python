@@ -37,7 +37,6 @@ class UserManager(BaseUserManager):
                          email, 
                          first_name,
                          last_name,
-                         phone,
                          password, 
                          **extra_fields):
         extra_fields.setdefault('is_staff', True)
